@@ -18,6 +18,9 @@ public class Team {
         this.players = new ArrayList<>();
     }
 
+    public Team(String australia, int i, String rutaAus) {
+    }
+
     public String getId() {
         return id;
     }
