@@ -1,12 +1,31 @@
 package Model;
 
-import java.util.List;
-
 public class Team {
-    private int id;
+    private String id;
     private String name;
     private int ranking;
-    private List<Player> players;
+    private String flagIcon;
 
-    // Constructor, getters y setters
+    public Team(String id, String name, int ranking, String flagIcon) {
+        this.id = id;
+        this.name = name;
+        this.ranking = ranking;
+        this.flagIcon = flagIcon;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRanking() {
+        return ranking;
+    }
+
+    public String getFlagIcon() {
+        return flagIcon;
+    }
 }

@@ -25,8 +25,7 @@ public class DataPlayer {
                 if (parts.length == 3) {
                     int number = Integer.parseInt(parts[0]);
                     String name = parts[1];
-                    String positionStr = parts[2];
-                    Position position = Position.valueOf(positionStr);  // Convertir String a enum Position
+                    Position position = Position.valueOf(parts[2]);  // Convertir String a enum Position
                     Player player = new Player(number, name, position);
                     players.add(player);
                 }
