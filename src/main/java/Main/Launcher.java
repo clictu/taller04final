@@ -2,6 +2,7 @@ package Main;
 
 import Data.DataPlayer;
 import Guis.GuiTeams;
+import Model.Player;
 import Model.Team;
 
 import javax.swing.*;

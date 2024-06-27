@@ -28,8 +28,8 @@ public class GuiTeams {
     private void initializeTeamFileMapping() {
         teamFileMapping = new HashMap<>();
         teamFileMapping.put("Australia", "aus");
-        teamFileMapping.put("Chile", "chi");
         teamFileMapping.put("Camerún", "cmr");
+        teamFileMapping.put("Chile", "chi");
         teamFileMapping.put("Alemania", "ger");
     }
 
@@ -66,6 +66,22 @@ public class GuiTeams {
         lblTeamInfo = new JLabel("Seleccione un equipo para ver la información de los jugadores.");
         teamsPanel.add(lblTeamInfo, BorderLayout.CENTER);
 
+        JButton editButton = new JButton("Editar Jugador");
+        editButton.addActionListener(e -> {
+            Player selectedPlayer = getSelectedPlayer();
+            if (selectedPlayer != null) {
+                String newName = JOptionPane.showInputDialog(frame, "Nuevo nombre para el jugador:", selectedPlayer.getName());
+                if (newName != null && !newName.isEmpty()) {
+                    selectedPlayer.setName(newName);
+                    dataPlayer.editPlayer(selectedPlayer);
+                    showPlayers((String) teamComboBox.getSelectedItem());
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Seleccione un jugador para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        teamsPanel.add(editButton, BorderLayout.SOUTH);
+
         frame.add(teamsPanel);
     }
 
@@ -98,12 +114,21 @@ public class GuiTeams {
                 for (Player player : players) {
                     System.out.println("Jugador: " + player); // Depuración
                 }
-                GuiPlayers guiPlayers = new GuiPlayers();
-                guiPlayers.showPlayers(players);
+                // Actualiza la interfaz de jugadores si es necesario
+                // En este ejemplo, asumimos que GuiPlayers es una clase separada para mostrar jugadores.
+                //guiPlayers.showPlayers(players);
             }
         } else {
             JOptionPane.showMessageDialog(frame, "No se encontró el archivo para el equipo seleccionado.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private Player getSelectedPlayer() {
+        Team selectedTeam = getTeamByName((String) teamComboBox.getSelectedItem());
+        if (selectedTeam != null && selectedTeam.getPlayers() != null && !selectedTeam.getPlayers().isEmpty()) {
+            return selectedTeam.getPlayers().get(0); // Devuelve el primer jugador como ejemplo
+        }
+        return null;
     }
 
     public JFrame getFrame() {

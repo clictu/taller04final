@@ -1,14 +1,19 @@
 package Model;
 
 public class Player {
-    private int number; // Número de jugador
+    private int number; // Nuevo atributo para el número del jugador
     private String name;
-    private Position position;
+    private int age;
+    private String position;
 
-    public Player(int number, String name, String position) {
+    public Player(int number, String name, int age, String position) {
         this.number = number;
         this.name = name;
-        this.position = Position.fromString(position);
+        this.age = age;
+        this.position = position;
+    }
+
+    public Player(String name, int age, String position) {
     }
 
     public int getNumber() {
@@ -19,7 +24,11 @@ public class Player {
         return name;
     }
 
-    public Position getPosition() {
+    public int getAge() {
+        return age;
+    }
+
+    public String getPosition() {
         return position;
     }
 
@@ -28,7 +37,11 @@ public class Player {
         return "Player{" +
                 "number=" + number +
                 ", name='" + name + '\'' +
-                ", position=" + position +
+                ", age=" + age +
+                ", position='" + position + '\'' +
                 '}';
+    }
+
+    public void setName(String newName) {
     }
 }

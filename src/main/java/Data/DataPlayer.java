@@ -9,29 +9,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataPlayer {
-    private static final String DATA_FOLDER = "C:\\Users\\usuario\\IdeaProjects\\taller04final\\Datos\\";
+    private static final String DATA_PATH = "C:\\Users\\usuario\\IdeaProjects\\taller04final\\Datos\\";
 
     public List<Player> loadPlayersFromFile(String teamFileName) {
         List<Player> players = new ArrayList<>();
-        String filePath = DATA_FOLDER + teamFileName + ".txt";
-
-        System.out.println("Intentando cargar archivo: " + filePath);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_PATH + teamFileName + ".txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length == 3) {
-                    int number = Integer.parseInt(parts[0]); // Número de jugador
-                    String name = parts[1];
-                    String position = parts[2];
-                    players.add(new Player(number, name, position));
+                String[] data = line.split(",");
+                if (data.length == 3) {
+                    String name = data[0].trim();
+                    int age = Integer.parseInt(data[1].trim());
+                    String position = data[2].trim();
+                    Player player = new Player(name, age, position);
+                    players.add(player);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return players;
+    }
+
+    public void editPlayer(Player player) {
+        // Implementación para editar un jugador (si es necesario)
     }
 }
