@@ -9,7 +9,7 @@ public class Player {
     public Player(int number, String name, int age, String position) {
         this.number = number;
         this.name = name;
-        this.age = age;
+
         this.position = position;
     }
 
@@ -51,7 +51,7 @@ public class Player {
         return "Player{" +
                 "number=" + number +
                 ", name='" + name + '\'' +
-                ", age=" + age +
+
                 ", position='" + position + '\'' +
                 '}';
     }
