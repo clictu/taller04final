@@ -1,12 +1,23 @@
 package Model;
 
 public enum Position {
-    GK, // Goalkeeper
-    DF, // Defender
-    MF, // Midfielder
-    FW; // Forward
+    GK,
+    DF,
+    MF,
+    FW;
 
     public static Position fromString(String position) {
-        return Position.valueOf(position.toUpperCase());
+        switch (position.trim().toUpperCase()) {
+            case "GK":
+                return GK;
+            case "DF":
+                return DF;
+            case "MF":
+                return MF;
+            case "FW":
+                return FW;
+            default:
+                throw new IllegalArgumentException("Unknown position: " + position);
+        }
     }
 }

@@ -1,7 +1,6 @@
 package Data;
 
 import Model.Player;
-import Model.Position;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,19 +22,10 @@ public class DataPlayer {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
                 if (parts.length == 3) {
-                    int id = Integer.parseInt(parts[0].trim());
-                    String name = parts[1].trim();
-                    String position = parts[2].trim();
-
-                    // Convertir posición a enumeración Position
-                    Position pos = Position.fromString(position);
-                    if (pos != null) {
-                        players.add(new Player(id, name, pos.toString()));
-                    } else {
-                        System.err.println("Posición inválida encontrada: " + position);
-                    }
-                } else {
-                    System.err.println("Formato incorrecto de línea: " + line);
+                    int number = Integer.parseInt(parts[0]); // Número de jugador
+                    String name = parts[1];
+                    String position = parts[2];
+                    players.add(new Player(number, name, position));
                 }
             }
         } catch (IOException e) {
