@@ -13,21 +13,31 @@ public class DataPlayer {
 
     public List<Player> loadPlayersFromFile(String teamFileName) {
         List<Player> players = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_PATH + teamFileName + ".txt"))) {
+        String filePath = DATA_PATH + teamFileName + ".txt";
+        System.out.println("Intentando cargar jugadores desde: " + filePath); // Depuración
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
+                System.out.println("Leyendo línea: " + line); // Depuración
+                String[] data = line.split(";");
                 if (data.length == 3) {
-                    String name = data[0].trim();
-                    int age = Integer.parseInt(data[1].trim());
+                    int number = Integer.parseInt(data[0].trim());
+                    String name = data[1].trim();
                     String position = data[2].trim();
-                    Player player = new Player(name, age, position);
+
+                    Player player = new Player(number, name, 0, position); // Aquí asumo edad como 0, ajusta según tus datos
                     players.add(player);
+                } else {
+                    System.out.println("Línea con formato incorrecto: " + line); // Depuración
                 }
             }
         } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + filePath);
             e.printStackTrace();
         }
+
+        System.out.println("Jugadores cargados: " + players.size()); // Depuración
         return players;
     }
 
