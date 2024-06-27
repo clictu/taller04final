@@ -6,22 +6,31 @@ import Model.Team;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 
 public class GuiTeams {
-
     private JFrame frame;
     private JPanel teamsPanel;
     private JComboBox<String> teamComboBox;
     private JLabel lblTeamInfo;
-
     private List<Team> teams;
     private DataPlayer dataPlayer;
+    private HashMap<String, String> teamFileMapping;
 
     public GuiTeams(List<Team> teams, DataPlayer dataPlayer) {
         this.teams = teams;
         this.dataPlayer = dataPlayer;
+        initializeTeamFileMapping();
         initialize();
+    }
+
+    private void initializeTeamFileMapping() {
+        teamFileMapping = new HashMap<>();
+        teamFileMapping.put("Australia", "aus");
+        teamFileMapping.put("Chile", "chi");
+        teamFileMapping.put("Camerún", "cmr");
+        teamFileMapping.put("Alemania", "ger");
     }
 
     private void initialize() {
@@ -46,7 +55,7 @@ public class GuiTeams {
                 Team selectedTeam = getTeamByName(selectedTeamName);
                 if (selectedTeam != null) {
                     showTeamInfo(selectedTeam);
-                    showPlayers(selectedTeam.getId());
+                    showPlayers(selectedTeam.getName());
                 }
             }
         });
@@ -78,17 +87,19 @@ public class GuiTeams {
         lblTeamInfo.setText(info.toString());
     }
 
-    private void showPlayers(String teamId) {
-        List<Player> players = dataPlayer.loadPlayersFromFile(teamId);
-        GuiPlayers guiPlayers = new GuiPlayers();
-        guiPlayers.showPlayers(players);
+    private void showPlayers(String teamName) {
+        String teamFileName = teamFileMapping.get(teamName);
+        System.out.println("Seleccionado equipo: " + teamName + ", archivo: " + teamFileName); // Depuración
+        if (teamFileName != null) {
+            List<Player> players = dataPlayer.loadPlayersFromFile(teamFileName);
+            GuiPlayers guiPlayers = new GuiPlayers();
+            guiPlayers.showPlayers(players);
+        } else {
+            JOptionPane.showMessageDialog(frame, "No se encontró el archivo para el equipo seleccionado.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public JFrame getFrame() {
         return frame;
-    }
-
-    public JComboBox<String> getTeamComboBox() {
-        return teamComboBox;
     }
 }

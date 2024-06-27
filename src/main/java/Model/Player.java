@@ -1,19 +1,22 @@
 package Model;
 
 public class Player {
-    private int number;
+    private int id;
     private String name;
     private Position position;
+    private int number; // Añadido campo number
 
-    public Player(int number, String name, Position position) {
-        this.number = number;
+    // Constructor
+    public Player(int id, String name, Position position, int number) {
+        this.id = id;
         this.name = name;
         this.position = position;
+        this.number = number; // Inicializar número
     }
 
     // Getters
-    public int getNumber() {
-        return number;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -24,9 +27,13 @@ public class Player {
         return position;
     }
 
-    // Setters (opcional, dependiendo de tus necesidades)
-    public void setNumber(int number) {
-        this.number = number;
+    public int getNumber() {
+        return number; // Getter para number
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -35,5 +42,19 @@ public class Player {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public void setNumber(int number) {
+        this.number = number; // Setter para number
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", position=" + position +
+                ", number=" + number + // Incluir number en toString
+                '}';
     }
 }

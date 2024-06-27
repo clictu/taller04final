@@ -8,37 +8,39 @@ import java.util.List;
 
 public class GuiPlayers {
 
-    private JFrame playersFrame;
+    private JFrame frame;
     private JPanel playersPanel;
+    private JList<String> playersList;
+    private DefaultListModel<String> playersListModel;
 
     public GuiPlayers() {
         initialize();
     }
 
     private void initialize() {
-        playersFrame = new JFrame("Jugadores del Equipo");
-        playersFrame.setSize(400, 300);
+        frame = new JFrame("Jugadores del equipo");
+        frame.setSize(400, 300);
 
-        playersPanel = new JPanel();
-        playersPanel.setLayout(new BorderLayout());
+        playersPanel = new JPanel(new BorderLayout());
 
-        playersFrame.add(playersPanel);
+        playersListModel = new DefaultListModel<>();
+        playersList = new JList<>(playersListModel);
+        JScrollPane scrollPane = new JScrollPane(playersList);
+        playersPanel.add(scrollPane, BorderLayout.CENTER);
+
+        frame.add(playersPanel);
     }
 
     public void showPlayers(List<Player> players) {
-        playersPanel.removeAll();
-
-        JPanel playersListPanel = new JPanel();
-        playersListPanel.setLayout(new GridLayout(players.size(), 1));
-
+        playersListModel.clear();
         for (Player player : players) {
-            JLabel playerLabel = new JLabel(player.getNumber() + " - " + player.getName() + " - " + player.getPosition());
-            playersListPanel.add(playerLabel);
+            // Aquí se añade cada jugador al modelo de la lista
+            playersListModel.addElement(player.getNumber() + " - " + player.getName() + " - " + player.getPosition());
         }
+        frame.setVisible(true); // Hace visible la ventana con la lista actualizada de jugadores
+    }
 
-        JScrollPane scrollPane = new JScrollPane(playersListPanel);
-        playersPanel.add(scrollPane, BorderLayout.CENTER);
-
-        playersFrame.setVisible(true);
+    public JFrame getFrame() {
+        return frame;
     }
 }
