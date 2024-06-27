@@ -111,12 +111,9 @@ public class GuiTeams {
             if (players.isEmpty()) {
                 System.out.println("No se cargaron jugadores para el equipo: " + teamName); // Depuración
             } else {
-                for (Player player : players) {
-                    System.out.println("Jugador: " + player); // Depuración
-                }
-                // Actualiza la interfaz de jugadores si es necesario
-                // En este ejemplo, asumimos que GuiPlayers es una clase separada para mostrar jugadores.
-                //guiPlayers.showPlayers(players);
+                // Crear una instancia de GuiPlayers y mostrar los jugadores visualmente
+                GuiPlayers guiPlayers = new GuiPlayers();
+                guiPlayers.showPlayers(players);
             }
         } else {
             JOptionPane.showMessageDialog(frame, "No se encontró el archivo para el equipo seleccionado.", "Error", JOptionPane.ERROR_MESSAGE);
