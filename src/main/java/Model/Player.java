@@ -7,11 +7,12 @@ public class Player {
     private int number; // Añadido campo number
 
     // Constructor
-    public Player(int id, String name, Position position, int number) {
+    public Player(int id, String name, String position) {
         this.id = id;
         this.name = name;
-        this.position = position;
-        this.number = number; // Inicializar número
+        this.position = Position.fromString(position);
+        // Para evitar errores en la carga de jugadores, definiré un valor por defecto para el número del jugador
+        this.number = 0; // Puedes ajustar esto según el diseño de tu aplicación
     }
 
     // Getters
@@ -28,7 +29,7 @@ public class Player {
     }
 
     public int getNumber() {
-        return number; // Getter para number
+        return number;
     }
 
     // Setters
@@ -45,7 +46,7 @@ public class Player {
     }
 
     public void setNumber(int number) {
-        this.number = number; // Setter para number
+        this.number = number;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class Player {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", position=" + position +
-                ", number=" + number + // Incluir number en toString
+                ", number=" + number +
                 '}';
     }
 }

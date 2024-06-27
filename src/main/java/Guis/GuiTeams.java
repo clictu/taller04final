@@ -92,8 +92,15 @@ public class GuiTeams {
         System.out.println("Seleccionado equipo: " + teamName + ", archivo: " + teamFileName); // Depuración
         if (teamFileName != null) {
             List<Player> players = dataPlayer.loadPlayersFromFile(teamFileName);
-            GuiPlayers guiPlayers = new GuiPlayers();
-            guiPlayers.showPlayers(players);
+            if (players.isEmpty()) {
+                System.out.println("No se cargaron jugadores para el equipo: " + teamName); // Depuración
+            } else {
+                for (Player player : players) {
+                    System.out.println("Jugador: " + player); // Depuración
+                }
+                GuiPlayers guiPlayers = new GuiPlayers();
+                guiPlayers.showPlayers(players);
+            }
         } else {
             JOptionPane.showMessageDialog(frame, "No se encontró el archivo para el equipo seleccionado.", "Error", JOptionPane.ERROR_MESSAGE);
         }

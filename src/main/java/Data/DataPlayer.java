@@ -14,20 +14,28 @@ public class DataPlayer {
 
     public List<Player> loadPlayersFromFile(String teamFileName) {
         List<Player> players = new ArrayList<>();
-        String filePath = DATA_FOLDER + teamFileName + ".txt"; // Incluye la extensión .txt
+        String filePath = DATA_FOLDER + teamFileName + ".txt";
 
-        System.out.println("Intentando cargar archivo: " + filePath); // Depuración
+        System.out.println("Intentando cargar archivo: " + filePath);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
                 if (parts.length == 3) {
-                    int id = Integer.parseInt(parts[0]);
-                    String name = parts[1];
-                    String position = parts[2];
-                    int number = Integer.parseInt(parts[0]); // Asegurar que el número sea el primer elemento en el archivo
-                    players.add(new Player(id, name, Position.fromString(position), number));
+                    int id = Integer.parseInt(parts[0].trim());
+                    String name = parts[1].trim();
+                    String position = parts[2].trim();
+
+                    // Convertir posición a enumeración Position
+                    Position pos = Position.fromString(position);
+                    if (pos != null) {
+                        players.add(new Player(id, name, pos.toString()));
+                    } else {
+                        System.err.println("Posición inválida encontrada: " + position);
+                    }
+                } else {
+                    System.err.println("Formato incorrecto de línea: " + line);
                 }
             }
         } catch (IOException e) {
